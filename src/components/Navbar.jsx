@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { NAV_LINKS, BRAND } from '../data/navigation';
+import useTheme from '../hooks/useTheme';
 
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const { theme, toggleTheme } = useTheme();
 
     return (
         <header className="navbar" role="banner">
@@ -12,17 +14,29 @@ function Navbar() {
                     <span className="navbar__brand-name">{BRAND.name}</span>
                 </a>
 
-                <button
-                    className="navbar__toggle"
-                    onClick={() => setMenuOpen(!menuOpen)}
-                    aria-expanded={menuOpen}
-                    aria-controls="nav-menu"
-                    aria-label="切換導覽選單"
-                >
-                    <span className="navbar__toggle-bar" />
-                    <span className="navbar__toggle-bar" />
-                    <span className="navbar__toggle-bar" />
-                </button>
+                <div className="navbar__actions-mobile">
+                    <button
+                        id="theme-toggle-mobile"
+                        className="navbar__theme-btn"
+                        onClick={toggleTheme}
+                        aria-label={theme === 'dark' ? '切換至淺色模式' : '切換至深色模式'}
+                        title={theme === 'dark' ? '淺色模式' : '深色模式'}
+                    >
+                        {theme === 'dark' ? '☀️' : '🌙'}
+                    </button>
+
+                    <button
+                        className="navbar__toggle"
+                        onClick={() => setMenuOpen(!menuOpen)}
+                        aria-expanded={menuOpen}
+                        aria-controls="nav-menu"
+                        aria-label="切換導覽選單"
+                    >
+                        <span className="navbar__toggle-bar" />
+                        <span className="navbar__toggle-bar" />
+                        <span className="navbar__toggle-bar" />
+                    </button>
+                </div>
 
                 <nav
                     id="nav-menu"
@@ -39,6 +53,17 @@ function Navbar() {
                             </li>
                         ))}
                     </ul>
+
+                    <button
+                        id="theme-toggle-desktop"
+                        className="navbar__theme-btn"
+                        onClick={toggleTheme}
+                        aria-label={theme === 'dark' ? '切換至淺色模式' : '切換至深色模式'}
+                        title={theme === 'dark' ? '淺色模式' : '深色模式'}
+                    >
+                        {theme === 'dark' ? '☀️' : '🌙'}
+                    </button>
+
                     <a href="#demo" className="btn btn--primary btn--sm navbar__cta">
                         預約 Demo
                     </a>
